@@ -2,20 +2,34 @@
 
 ## Objective
 
-The objective of this phase was to build machine learning classification models to predict the sentiment of movie reviews (positive or negative) and to identify the best-performing model for this task.
+The objective of this phase was to develop machine learning classification models to predict the sentiment of movie reviews (positive or negative) and to determine the better-performing model.
 
 ## Approach
 
-### Data Preparation
+### Data Loading
 
-The dataset used was the IMDB movie reviews dataset.
-The target variable was `sentiment`.
-The feature variable was `review`.
-Text data was cleaned by converting to lowercase, removing HTML tags, removing non-alphabetic characters, and eliminating unnecessary whitespace.
+The dataset was loaded from a CSV file located at:
+`mlg381/data/IMDBDataset.csv`
+
+The dataset contains:
+
+* `review`: textual movie reviews
+* `sentiment`: target variable (positive or negative)
+
+Initial checks were performed to inspect the dataset shape, columns, and class distribution.
+
+### Data Cleaning
+
+Text preprocessing was applied to prepare the data for machine learning. The following steps were performed:
+
+* Conversion of all text to lowercase
+* Removal of non-alphabetic characters using regular expressions
+
+This ensured that the text data was standardized and noise was reduced.
 
 ### Feature Extraction
 
-Text data was transformed into numerical features using TF-IDF vectorization.
+Text data was converted into numerical features using TF-IDF vectorization.
 A maximum of 5000 features was used to represent the most important words in the dataset.
 
 ### Train-Test Split
@@ -25,35 +39,44 @@ The dataset was split into:
 * 80% training data
 * 20% testing data
 
-A fixed random state was used to ensure reproducibility of results.
+A fixed random state (`random_state=42`) was used to ensure reproducibility.
 
 ## Models Developed
 
 ### Logistic Regression
 
-Logistic Regression was used as the primary classification model for sentiment prediction.
+Logistic Regression was implemented as the primary classification model.
 
-* Accuracy: ~0.88
-* F1 Score: ~0.88
+* The model was trained using the training dataset
+* Predictions were generated on the test dataset
 
 ### Naive Bayes
 
-The Multinomial Naive Bayes model was implemented as a secondary model for comparison.
+Multinomial Naive Bayes was implemented as a secondary model for comparison.
 
-* Accuracy: ~0.84–0.87
-* F1 Score: ~0.84–0.87
+* The model was trained on the same training data
+* Predictions were generated on the test dataset
+
+## Model Evaluation
+
+Model performance was evaluated using accuracy.
+
+* Logistic Regression Accuracy: approximately 0.88
+* Naive Bayes Accuracy: slightly lower than Logistic Regression
+
+A comparison was performed to determine the better model.
 
 ## Model Selection
 
-Logistic Regression was selected as the final model because it consistently achieved higher accuracy and F1 score compared to Naive Bayes, making it more suitable for sentiment classification.
+Logistic Regression was selected as the better-performing model because it achieved higher accuracy compared to Naive Bayes.
 
 ## Challenges
 
-* Text preprocessing required careful handling to remove HTML artifacts such as "br" tags from the dataset.
-* File path issues initially prevented the dataset from loading and were resolved by correcting directory paths.
-* Ensuring that TF-IDF vectorization was applied correctly was critical, as incorrect implementation led to errors during model training.
-* Large dataset size increased computation time, requiring efficient feature selection using a limited number of features.
+* Ensuring correct file paths for loading the dataset
+* Applying proper text preprocessing before vectorization
+* Avoiding errors caused by incorrect execution order in the notebook
+* Handling large text data efficiently using feature limits
 
 ## Conclusion
 
-The modeling phase successfully developed and evaluated two classification models for sentiment analysis. Logistic Regression was selected as the best-performing model, achieving strong and consistent results. The model is suitable for predicting sentiment in unseen text data and can be used in further stages such as evaluation, saving, and deployment.
+The model development phase successfully trained and compared two classification models. Logistic Regression outperformed Naive Bayes and was selected as the final model for sentiment prediction. The model is capable of accurately classifying unseen movie reviews into positive or negative sentiments.
