@@ -25,7 +25,7 @@ app.layout = dbc.Container([
         dbc.Col([
             dcc.Textarea(
                 id='review-input',
-                placeholder='Enter your review text here... (e.g., I love this movie!)',
+                placeholder='Enter your review text here... (this is only an example of what will show on businesses side)',
                 style={'width': '100%', 'height': 150},
                 className="form-control"
             ),
