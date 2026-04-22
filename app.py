@@ -2,7 +2,8 @@ import joblib
 import dash
 from dash import dcc, html, Input, Output, callback
 import dash_bootstrap_components as dbc
-import numpy as np
+# import numpy as np  # removed to avoid build issues; use model methods directly
+
 import plotly.graph_objects as go
 import plotly.express as px
 
@@ -70,18 +71,24 @@ def update_prediction(n_clicks, review_text):
             html.P(f"Positive Probability: {pos_prob} | Negative Probability: {neg_prob}")
         ], color='success' if sentiment == 'Positive' else 'danger', className="text-center")
         
-        # Probability bar chart
-        fig = px.bar(
-            x=['Negative', 'Positive'],
-            y=probabilities,
+        # Probability bar chart - use go.Bar to avoid pandas dep
+        fig = go.Figure(data=[
+            go.Bar(
+                x=['Negative', 'Positive'],
+                y=probabilities,
+                marker_color=['#e74c3c', '#27ae60']
+            )
+        ])
+        fig.update_layout(
             title="Sentiment Probabilities",
-            color=['Negative', 'Positive'],
-            color_discrete_map={'Negative': '#e74c3c', 'Positive': '#27ae60'},
-            labels={'x': 'Sentiment', 'y': 'Probability'}
+            xaxis_title="Sentiment",
+            yaxis_title="Probability",
+            showlegend=False,
+            height=400
         )
-        fig.update_layout(showlegend=False, height=400)
         
         bar = dcc.Graph(figure=fig)
+
         
         return output, bar
     
