@@ -10,15 +10,10 @@ import plotly.graph_objects as go
 
 # Load the trained model and vectorizer
 print("Loading model and vectorizer...")
-try:
-    import sklearn
-    model = joblib.load('models/sentiment_model.pkl')
-    vectorizer = joblib.load('models/tfidf_vectorizer.pkl')
-except ImportError:
-    import cloudpickle
-    model = cloudpickle.load(open('models/sentiment_model.cpkl', 'rb'))
-    vectorizer = cloudpickle.load(open('models/tfidf_vectorizer.cpkl', 'rb'))
+model = joblib.load('models/sentiment_model.pkl')
+vectorizer = joblib.load('models/tfidf_vectorizer.pkl')
 print("Model and vectorizer loaded successfully!")
+
 
 
 # Initialize the Dash app with Bootstrap theme
