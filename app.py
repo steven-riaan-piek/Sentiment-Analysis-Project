@@ -11,8 +11,8 @@ import plotly.graph_objects as go
 # Load the trained model and vectorizer
 print("Loading model and vectorizer...")
 import cloudpickle
-model = cloudpickle.load(open('models/sentiment_model.pkl', 'rb'))
-vectorizer = cloudpickle.load(open('models/tfidf_vectorizer.pkl', 'rb'))
+model = cloudpickle.load(open('models/sentiment_model.cpkl', 'rb'))
+vectorizer = cloudpickle.load(open('models/tfidf_vectorizer.cpkl', 'rb'))
 print("Model and vectorizer loaded successfully!")
 
 
