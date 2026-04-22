@@ -5,7 +5,8 @@ import dash_bootstrap_components as dbc
 # import numpy as np  # removed to avoid build issues; use model methods directly
 
 import plotly.graph_objects as go
-import plotly.express as px
+# import plotly.express as px  # removed - px.bar requires pandas
+
 
 # Load the trained model and vectorizer
 print("Loading model and vectorizer...")
