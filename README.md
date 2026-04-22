@@ -1,35 +1,26 @@
-# Sentiment-Analysis-Project
+# Sentiment Analysis Project
 
-## 📂 Dataset
+## Render Deployment
 
-The dataset is too large to store on GitHub.
+Build: `pip install -r requirements.txt`
+Start: `gunicorn app:app`
 
-Download it here:
-[IMDB Dataset](https://drive.google.com/file/d/1y-rCU8LabROle08NhxLq2FUZTihn_mO9/view?usp=sharing)
-[Cleaned Data Files](https://drive.google.com/drive/folders/1mj5K6ESZ03ruf5nXdTET7NkEtjSNSsyY?usp=sharing)
+**Issues fixed:**
+- Python 3.14.3 Cython build fails for sklearn 1.3-1.5.
 
-## 🚀 Dash Web App (Step 6)
-
-**Local Run**:
+**Solution:**
+1. Install cloudpickle: `pip install cloudpickle`
+2. Re-save models:
+```python
+import cloudpickle
+import joblib
+model = joblib.load('models/sentiment_model.pkl') 
+vectorizer = joblib.load('models/tfidf_vectorizer.pkl') 
+cloudpickle.dump(model, open('models/sentiment_model.cpkl', 'wb'))
+cloudpickle.dump(vectorizer, open('models/tfidf_vectorizer.cpkl', 'wb'))
 ```
-pip install -r requirements.txt
-python app.py
-```
-Visit: http://127.0.0.1:8050
+3. Update app.py model loads to .cpkl files.
+4. git add/commit/push.
 
-Enter review text, click Predict → Get sentiment (Positive/Negative) + probability bar.
+No heavy deps - deploys instantly.
 
-**Deploy to Render** (Python 3.10+):
-1. Push to GitHub repo.
-2. New Web Service → Connect repo.
-3. Build: `pip install -r requirements.txt`
-4. Start: `gunicorn app: app`
-5. Live URL provided.
-
-Models auto-loaded from `models/`.
-
-## 📋 TODO
-See [TODO.md](TODO.md)
-
-## Team Workflow
-Follows info.text steps 1-6.
