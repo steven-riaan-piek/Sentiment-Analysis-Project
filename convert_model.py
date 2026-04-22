@@ -1,12 +1,15 @@
 import joblib
 import cloudpickle
- 
-# Load original models
+
+# Load with joblib (this part is fine locally)
 model = joblib.load('models/sentiment_model.pkl')
 vectorizer = joblib.load('models/tfidf_vectorizer.pkl')
- 
-# Save as cloudpickle
-cloudpickle.dump(model, open('models/sentiment_model.cpkl', 'wb'))
-cloudpickle.dump(vectorizer, open('models/tfidf_vectorizer.cpkl', 'wb'))
- 
-print("Conversion complete!")
+
+# Re-save using ONLY cloudpickle
+with open('models/sentiment_model.cpkl', 'wb') as f:
+    cloudpickle.dump(model, f)
+
+with open('models/tfidf_vectorizer.cpkl', 'wb') as f:
+    cloudpickle.dump(vectorizer, f)
+
+print("Converted without joblib dependency")
